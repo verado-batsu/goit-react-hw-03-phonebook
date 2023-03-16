@@ -5,11 +5,19 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 import { FormStyled } from 'components/ContactForm/ContactForm.styled';
+
+import { isValidName, isValidPhone } from './addMethodContactFormYup';
 	
+const nameRegex = "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$";
+const invalidNameMessage = "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan";
+
+const phoneRegex = /^(\+?\d[- .]*){6,13}\d$/;
+// const phoneRegex = "\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}";
+const invalidPhoneMessage = "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +";
 
 const schema = yup.object({
-	name: yup.string().required(),
-	number:	yup.number().required(),
+	name: yup.string().isValidName(nameRegex, invalidNameMessage).required(),
+	number:	yup.string().min(7).max(12).isValidPhone(phoneRegex, invalidPhoneMessage).required(),
 })
 export function ContactForm ({getDataFromForm}) {
 	// handleChange = (e) => {
@@ -53,8 +61,6 @@ export function ContactForm ({getDataFromForm}) {
 						<Field
 							type="text"
 							name="name"
-							pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-							title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
 						/>
 						<ErrorMessage component="div" name="name" />
 					</label>
@@ -63,8 +69,6 @@ export function ContactForm ({getDataFromForm}) {
 						<Field
 							type="tel"
 							name="number"
-							pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-							title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
 						/>
 						<ErrorMessage component="div" name="number" />
 					</label>
