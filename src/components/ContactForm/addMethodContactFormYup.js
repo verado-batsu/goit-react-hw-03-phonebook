@@ -1,5 +1,3 @@
-import * as yup from 'yup';
-
 export function isValidName(validate, message) {
   return this.test("isValidName", message, function (value) {
     const { path, createError } = this;
@@ -30,6 +28,3 @@ export function isValidPhone(validate, message) {
   });
 }
 
-yup.addMethod(yup.string, "isValidName", isValidName);
-
-yup.addMethod(yup.string, "isValidPhone", isValidPhone);
