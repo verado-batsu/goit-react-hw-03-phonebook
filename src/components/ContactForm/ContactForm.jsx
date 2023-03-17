@@ -16,13 +16,13 @@ yup.addMethod(yup.string, "isValidName", isValidName);
 yup.addMethod(yup.string, "isValidPhone", isValidPhone);
 
 
-const phoneRegex = /^(\+?\d[- .]*){6,13}\d$/;
-// const phoneRegex = "\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}";
+// const phoneRegex = /^(\+?\d[- .]*){6,13}\d$/;
+const phoneRegex = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
 const invalidPhoneMessage = "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +";
 
 const schema = yup.object({
 	name: yup.string().isValidName(nameRegex, invalidNameMessage).required(),
-	number:	yup.string().min(7).max(12).isValidPhone(phoneRegex, invalidPhoneMessage).required(),
+	number:	yup.string().isValidPhone(phoneRegex, invalidPhoneMessage).min(7).max(12).required(),
 })
 export function ContactForm ({getDataFromForm}) {
 	// handleChange = (e) => {

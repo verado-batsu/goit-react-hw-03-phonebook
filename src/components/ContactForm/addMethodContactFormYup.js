@@ -1,6 +1,6 @@
 export function isValidName(validate, message) {
   return this.test("isValidName", message, function (value) {
-    const { path, createError } = this;
+	  const { path, createError } = this;
 
 	  if (!value.match(validate)) {
       return createError({
@@ -15,7 +15,7 @@ export function isValidName(validate, message) {
 
 export function isValidPhone(validate, message) {
   return this.test("isValidName", message, function (value) {
-    const { path, createError } = this;
+	  const { path, createError } = this;
 
 	  if (!value.match(validate)) {
       return createError({
